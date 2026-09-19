@@ -1,7 +1,5 @@
-package org.setu.placemark.console.main
+package org.setu.placemark.org.setu.placemark.console.main
 
-import org.setu.placemark.console.controllers.PlacemarkController
-
-fun main() {
-    PlacemarkController().start()
+fun main (){
+    println("Placemark Kotlin App Version 1.0")
 }

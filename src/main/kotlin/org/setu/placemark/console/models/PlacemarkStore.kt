@@ -11,13 +11,7 @@ val JSON_FILE = "placemarks.json"
 val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
 val listType = object : TypeToken<ArrayList<PlacemarkModel>>() {}.type
 
-interface PlacemarkStore {
-    fun findAll(): List<PlacemarkModel>
-    fun findOne(id: Long): PlacemarkModel?
-    fun create(placemark: PlacemarkModel)
-    fun update(placemark: PlacemarkModel)
-    fun delete(placemark: PlacemarkModel)
-}
+
 fun generateRandomId(): Long {
     return Random().nextLong()
 }
