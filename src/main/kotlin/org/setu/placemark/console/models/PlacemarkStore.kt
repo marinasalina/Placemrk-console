@@ -7,9 +7,17 @@ import com.google.gson.reflect.TypeToken
 import org.setu.placemark.console.helpers.*
 import java.util.*
 
-val JSON_FILE = "placemarks.json"
-val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
-val listType = object : TypeToken<ArrayList<PlacemarkModel>>() {}.type
+interface PlacemarkStore {
+    fun findAll(): List<PlacemarkModel>
+    fun findOne(id: Long): PlacemarkModel?
+    fun create(placemark: PlacemarkModel)
+    fun update(placemark: PlacemarkModel)
+    fun delete(placemark: PlacemarkModel)
+}
+
+val JSON_FILE = "placemarks.json"// the filename
+val gsonBuilder = GsonBuilder().setPrettyPrinting().create()//a utility to serialize a java class
+val listType = object : TypeToken<ArrayList<PlacemarkModel>>() {}.type//object to help in converting a JSON string to a java collection
 
 
 fun generateRandomId(): Long {
@@ -30,9 +38,8 @@ class PlacemarkJSONStore : PlacemarkStore {
         return placemarks
     }
 
-    override fun findOne(id: Long) : PlacemarkModel? {
-        var foundPlacemark: PlacemarkModel? = placemarks.find { p -> p.id == id }
-        return foundPlacemark
+    override fun findOne(id: Long): PlacemarkModel? {
+        return placemarks.find { placemark -> placemark.id == id }
     }
 
     override fun create(placemark: PlacemarkModel) {
@@ -42,7 +49,7 @@ class PlacemarkJSONStore : PlacemarkStore {
     }
 
     override fun update(placemark: PlacemarkModel) {
-        var foundPlacemark = findOne(placemark.id)
+        val foundPlacemark = findOne(placemark.id)
         if (foundPlacemark != null) {
             foundPlacemark.title = placemark.title
             foundPlacemark.description = placemark.description

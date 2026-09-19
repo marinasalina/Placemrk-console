@@ -2,6 +2,7 @@ package org.setu.placemark.console.views
 
 import org.setu.placemark.console.models.PlacemarkStore
 import org.setu.placemark.console.models.PlacemarkModel
+import org.setu.placemark.console.models.PlacemarkJSONStore
 
 class PlacemarkView {
 
@@ -27,12 +28,13 @@ class PlacemarkView {
         return option
     }
 
-    fun listPlacemarks(placemarks: PlacemarkStore) {
+    fun listPlacemarks(placemarks : PlacemarkJSONStore) {
         println("List All Placemarks")
         println()
-        placemarks.findAll().forEach { println(it) }
+        placemarks.logAll()
         println()
     }
+
 
     fun showPlacemark(placemark : PlacemarkModel) {
         if(placemark != null)
